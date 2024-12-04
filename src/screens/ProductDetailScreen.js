@@ -1,16 +1,42 @@
-import React from 'react';
-import { View, Text, Image, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import React, { useState } from 'react'
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const ProductDetailScreen = ({ route }) => {
-  const { product } = route.params;
+  const { product } = route.params
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const scrollViewRef = React.useRef(null)
+
+  const handleIndicatorPress = (index) => {
+    setCurrentImageIndex(index)
+    scrollViewRef.current?.scrollTo({
+      x: index * Dimensions.get('window').width,
+      animated: true,
+    })
+  }
 
   return (
     <ScrollView style={styles.container}>
-      
       <ScrollView
+        ref={scrollViewRef}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
+        onScroll={(event) => {
+          const index = Math.floor(
+            event.nativeEvent.contentOffset.x / Dimensions.get('window').width
+          )
+          setCurrentImageIndex(index)
+        }}
+        scrollEventThrottle={16}
       >
         {product.images.map((image, index) => (
           <Image
@@ -21,29 +47,45 @@ const ProductDetailScreen = ({ route }) => {
           />
         ))}
       </ScrollView>
-      
-      
+
+      <View style={styles.indicators}>
+        {product.images.map((_, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleIndicatorPress(index)}
+          >
+            <Icon
+              name="circle"
+              size={10}
+              color={currentImageIndex === index ? '#e91e63' : '#666'}
+              style={{ marginHorizontal: 5 }}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
+
       <View style={styles.infoContainer}>
         <Text style={styles.vendor}>{product.vendor.name}</Text>
         <Text style={styles.name}>{product.names.en}</Text>
         <Text style={styles.price}>{product.price} TL</Text>
-        
+
         <View style={styles.detailsContainer}>
           <Text style={styles.detailTitle}>Product Code:</Text>
           <Text style={styles.detailText}>{product.product_code}</Text>
-          
+
           <Text style={styles.detailTitle}>Series:</Text>
           <Text style={styles.detailText}>{product.series.name}</Text>
-          
+
           <Text style={styles.detailTitle}>Description:</Text>
           <Text style={styles.detailText}>
-            {product.description_details.en.fabric || 'No description available'}
+            {product.description_details.en.fabric ||
+              'No description available'}
           </Text>
         </View>
       </View>
     </ScrollView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -86,6 +128,12 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 5,
   },
-});
+  indicators: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -15,
+  },
+})
 
-export default ProductDetailScreen; 
+export default ProductDetailScreen
