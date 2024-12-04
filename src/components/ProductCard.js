@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ProductCard = ({ product, onPress }) => {
   return (
@@ -12,7 +13,10 @@ const ProductCard = ({ product, onPress }) => {
       <View style={styles.info}>
         <Text style={styles.vendor}>{product.vendor.name}</Text>
         <Text style={styles.name} numberOfLines={2}>{product.names.en}</Text>
-        <Text style={styles.price}>{product.price} TL</Text>
+        <View style={styles.priceContainer}>
+        <Text style={styles.price}>{product.price} TL</Text>,
+        <Icon name='shopping-cart' size={24} color='black' onPress={() => console.log('add to cart')}></Icon>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -53,6 +57,12 @@ const styles = StyleSheet.create({
     color: '#e91e63',
     fontWeight: 'bold',
   },
+  priceContainer:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 5,
+  }
 });
 
 export default ProductCard; 

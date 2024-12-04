@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet , Button} from 'react-native';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ProductListScreen = ({ navigation }) => {
   const renderItem = ({ item }) => (
@@ -10,6 +11,12 @@ const ProductListScreen = ({ navigation }) => {
       onPress={() => navigation.navigate('ProductDetail', { product: item })}
     />
   );
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Icon name="shopping-cart" size={24} color="black" onPress={() => navigation.navigate('Cart')} />
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

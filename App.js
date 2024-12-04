@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProductListScreen from './src/screens/ProductListScreen';
 import ProductDetailScreen from './src/screens/ProductDetailScreen';
-
+import CartScreen from './src/screens/CartScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -21,6 +21,11 @@ export default function App() {
           options={({ route }) => ({
             title: route.params.product.names.en || 'Product Details'
           })}
+        />
+        <Stack.Screen 
+          name="Cart" 
+          component={CartScreen} 
+          options={{ title: 'Cart' }}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />
