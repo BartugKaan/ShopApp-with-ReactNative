@@ -13,12 +13,14 @@ export default function App() {
         <Stack.Screen 
           name="ProductList" 
           component={ProductListScreen} 
-          options={{ title: 'Products' }}
+          options={{ title: 'Lonca Products' }}
         />
         <Stack.Screen 
           name="ProductDetail" 
           component={ProductDetailScreen} 
-          options={{ title: 'Product Detail' }}
+          options={({ route }) => ({
+            title: route.params.product.names.en || 'Product Details'
+          })}
         />
       </Stack.Navigator>
       <StatusBar style="auto" />
