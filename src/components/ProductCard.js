@@ -14,8 +14,8 @@ const ProductCard = ({ product, onPress }) => {
         <Text style={styles.vendor}>{product.vendor.name}</Text>
         <Text style={styles.name} numberOfLines={2}>{product.names.en}</Text>
         <View style={styles.priceContainer}>
-        <Text style={styles.price}>{product.price} TL</Text>,
-        <Icon name='shopping-cart' size={24} color='black' onPress={() => console.log('add to cart')}></Icon>
+          <Text style={styles.price}>{product.price} TL</Text>
+          <Icon name='shopping-cart' size={24} color='black' onPress={() => console.log('add to cart')} />
         </View>
       </View>
     </TouchableOpacity>
