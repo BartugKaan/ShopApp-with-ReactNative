@@ -7,11 +7,14 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { useCart } from '../context/CartContext';
 
 const ProductDetailScreen = ({ route }) => {
   const { product } = route.params
+  const { addToCart } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const scrollViewRef = React.useRef(null)
 
@@ -82,6 +85,16 @@ const ProductDetailScreen = ({ route }) => {
               'No description available'}
           </Text>
         </View>
+
+        <TouchableOpacity 
+          style={styles.addToCartButton}
+          onPress={() => {
+            addToCart(product);
+            Alert.alert('Başarılı', 'Ürün sepete eklendi');
+          }}
+        >
+          <Text style={styles.addToCartButtonText}>Sepete Ekle</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   )
@@ -133,6 +146,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: -15,
+  },
+  addToCartButton: {
+    backgroundColor: '#e91e63',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  addToCartButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 })
 
