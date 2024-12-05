@@ -1,14 +1,10 @@
 import React from 'react';
-import { View, FlatList, StyleSheet , Button, TouchableOpacity, Image, Text} from 'react-native';
+import { View, FlatList, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import ProductCard from '../components/ProductCard';
 import { products } from '../data/products';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useCart } from '../context/CartContext';
-import { Alert } from 'react-native';
 
 const ProductListScreen = ({ navigation }) => {
-  const { addToCart } = useCart();
-
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <TouchableOpacity
@@ -20,27 +16,9 @@ const ProductListScreen = ({ navigation }) => {
         <Text style={styles.vendor}>{item.vendor.name}</Text>
         <Text style={styles.name}>{item.names.en}</Text>
         <Text style={styles.price}>{item.price} TL</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={[styles.cartButton, { flex: 1 }]}
-            onPress={() => {
-              addToCart(item);
-              Alert.alert('Success', 'Product added to cart');
-            }}
-          >
-            <Icon name="shopping-cart" size={20} color="#fff" />
-            <Text style={styles.buttonText}>Add to Cart</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <Icon name="shopping-cart" size={24} color="black" onPress={() => navigation.navigate('Cart')} />
-    });
-  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -91,23 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: '#f00',
-  },
-  buttonContainer: {
-    marginTop: 10,
-  },
-  cartButton: {
-    backgroundColor: '#e91e63',
-    padding: 10,
-    borderRadius: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    marginLeft: 5,
-  },
+  }
 });
 
 export default ProductListScreen; 
