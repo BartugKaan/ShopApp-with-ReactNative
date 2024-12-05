@@ -90,10 +90,10 @@ const ProductDetailScreen = ({ route }) => {
           style={styles.addToCartButton}
           onPress={() => {
             addToCart(product);
-            Alert.alert('Başarılı', 'Ürün sepete eklendi');
+            Alert.alert('Success', 'Product added to cart');
           }}
         >
-          <Text style={styles.addToCartButtonText}>Sepete Ekle</Text>
+          <Text style={styles.addToCartButtonText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

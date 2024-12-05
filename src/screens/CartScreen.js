@@ -56,7 +56,7 @@ const CartScreen = () => {
       {cartItems.length === 0 ? (
         <View style={styles.emptyCart}>
           <Icon name="shopping-cart" size={50} color="#ccc" />
-          <Text style={styles.emptyCartText}>Sepetiniz boş</Text>
+          <Text style={styles.emptyCartText}>Your cart is empty</Text>
         </View>
       ) : (
         <>
@@ -66,7 +66,7 @@ const CartScreen = () => {
             keyExtractor={(item) => item.product_code.toString()}
           />
           <View style={styles.totalContainer}>
-            <Text style={styles.totalText}>Toplam:</Text>
+            <Text style={styles.totalText}>Total:</Text>
             <Text style={styles.totalPrice}>{totalPrice.toFixed(2)} TL</Text>
           </View>
         </>

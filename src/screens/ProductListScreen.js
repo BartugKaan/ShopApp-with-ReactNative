@@ -22,19 +22,14 @@ const ProductListScreen = ({ navigation }) => {
         <Text style={styles.price}>{item.price} TL</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.cartButton}
+            style={[styles.cartButton, { flex: 1 }]}
             onPress={() => {
               addToCart(item);
-              Alert.alert('Başarılı', 'Ürün sepete eklendi');
+              Alert.alert('Success', 'Product added to cart');
             }}
           >
             <Icon name="shopping-cart" size={20} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.detailsButton}
-            onPress={() => navigation.navigate('ProductDetail', { product: item })}
-          >
-            <Text style={styles.buttonText}>Details</Text>
+            <Text style={styles.buttonText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -98,20 +93,10 @@ const styles = StyleSheet.create({
     color: '#f00',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginTop: 10,
   },
   cartButton: {
-    backgroundColor: '#f00',
-    padding: 10,
-    borderRadius: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  detailsButton: {
-    backgroundColor: '#00f',
+    backgroundColor: '#e91e63',
     padding: 10,
     borderRadius: 5,
     flexDirection: 'row',
